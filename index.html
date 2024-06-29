@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ambulance Booking System</title>
+    <script>
+        async function registerUser() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+
+            const response = await fetch('http://127.0.0.1:5000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, phone, address })
+            });
+
+            const data = await response.json();
+            alert(data.message);
+        }
+
+        async function bookAmbulance() {
+            const userId = document.getElementById('user_id').value;
+
+            const response = await fetch('http://127.0.0.1:5000/book', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId })
+            });
+
+            const data = await response.json();
+            alert(data.message);
+        }
+
+        async function getStatus() {
+            const bookingId = document.getElementById('booking_id').value;
+
+            const response = await fetch(http://127.0.0.1:5000/status/${bookingId}, {
+                method: 'GET'
+            });
+
+            const data = await response.json();
+            alert(Booking Status: ${data.status});
+        }
+    </script>
+</head>
+<body>
+    <h1>Ambulance Booking System</h1>
+
+    <h2>Register User</h2>
+    <input type="text" id="name" placeholder="Name">
+    <input type="text" id="phone" placeholder="Phone">
+    <input type="text" id="address" placeholder="Address">
+    <button onclick="registerUser()">Register</button>
+
+    <h2>Book Ambulance</h2>
+    <input type="text" id="user_id" placeholder="User ID">
+    <button onclick="bookAmbulance()">Book Ambulance</button>
+
+    <h2>Get Booking Status</h2>
+    <input type="text" id="booking_id" placeholder="Booking ID">
+    <button onclick="getStatus()">Get Status</button>
+</body>
+</html>
